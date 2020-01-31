@@ -1,0 +1,60 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "Auth0 Marketing Experience Exercise",
+  "main": "pages/index.js",
+  "private": true,
+  "dependencies": {
+    "axios": "0.19.2",
+    "grommet": "2.10.0",
+    "next": "9.1.6",
+    "next-fonts": "1.0.3",
+    "normalize.css": "8.0.1",
+    "polished": "3.4.2",
+    "prop-types": "15.7.2",
+    "react": "16.12.0",
+    "react-dom": "16.12.0",
+    "styled-components": "4.4.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "10.0.3",
+    "babel-plugin-inline-import": "3.0.0",
+    "babel-plugin-inline-react-svg": "1.1.0",
+    "babel-plugin-module-resolver": "4.0.0",
+    "babel-plugin-styled-components": "1.10.6",
+    "eslint": "6.8.0",
+    "eslint-config-airbnb": "18.0.1",
+    "eslint-import-resolver-babel-module": "5.1.0",
+    "eslint-plugin-import": "2.19.1",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-react": "7.17.0"
+  },
+  "engines": {
+    "node": "12.14.0",
+    "npm": "6.13.4"
+  },
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . -c .eslintrc.js --ext js",
+    "lint:fix": "eslint . --fix",
+    "lint:watch": "esw -w ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/auth0-interviews/ext-me-yegor.git"
+  },
+  "keywords": [
+    "auth0",
+    "exercise",
+    "marketing",
+    "engineer"
+  ],
+  "author": "Auth0",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/auth0-interviews/ext-me-yegor/issues"
+  },
+  "homepage": "https://github.com/auth0-interviews/ext-me-yegor#readme"
+}

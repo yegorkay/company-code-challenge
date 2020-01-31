@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    // Allows to peek definitions in VSCode, I find it super helpful.
+    "paths": {
+      "components": ["components/*", "components"],
+      "api": ["api/*", "api"],
+      "settings": ["settings/*", "settings"]
+    }
+  }
+}
