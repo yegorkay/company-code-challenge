@@ -1,0 +1,53 @@
+{
+  "plugins": [
+    "inline-react-svg",
+    [
+      "styled-components",
+      {
+        "ssr": true
+      }
+    ],
+    [
+      "inline-import",
+      {
+        "extensions": [
+          ".css"
+        ]
+      }
+    ],
+    [
+      "module-resolver",
+      {
+        "root": [
+          "./"
+        ],
+        "alias": {
+          "components": "./components",
+          "api": "./api",
+          "settings": "./settings"
+        }
+      }
+    ]
+  ],
+  "env": {
+    "development": {
+      "presets": [
+        "next/babel"
+      ]
+    },
+    "production": {
+      "presets": [
+        "next/babel"
+      ],
+      "plugins": [
+        [
+          "styled-components",
+          {
+            "displayName": false,
+            "ssr": true
+          }
+        ]
+      ]
+    }
+  }
+}
