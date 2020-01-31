@@ -58,7 +58,7 @@ const colors = {
   edward: '#A5A8A8',
   iron: '#E3E5E7',
   scorpion: '#606060',
-  cerulean: '#0B96C6',
+  cerulean: '#0D96C6',
   text: {
     light: 'mine-shaft',
   },

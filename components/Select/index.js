@@ -15,6 +15,7 @@ const SelectWrapper = (props) => {
         value={value}
         options={options}
         onChange={onChange}
+        isSearchable={false}
         instanceId={instanceId}
         theme={(theme) => ({
           ...theme,
@@ -32,9 +33,14 @@ const SelectWrapper = (props) => {
 };
 
 const Select = styled(SelectWrapper)`
-  width: ${(props) => props.secondary ? '112px' : '148px'};;
+  width: ${(props) => props.secondary ? '112px' : '148px'};
 
   .react-select {
+
+    &__single-value {
+      font-size: 16px;
+      line-height: 21px;
+    }
 
     &__control {
       border-bottom-left-radius: 4px;
@@ -54,11 +60,20 @@ const Select = styled(SelectWrapper)`
         }
       `}
     }
+    &__indicator {
+      color: ${colors.edward};
+    }
     &__indicator-separator {
       display: none;
     }
     &__single-value {
       color: ${colors.edward};
+    }
+    &__value-container {
+      margin: 0 0 0 16px;
+    }
+    &__option {
+      text-align: center;
     }
   }
 `;

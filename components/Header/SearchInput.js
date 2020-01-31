@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Box, TextInput } from 'grommet';
 import styled from 'styled-components';
@@ -13,7 +13,10 @@ const SearchContainer = styled(Box)`
   [contenteditable] {
     caret-color: ${colors.cerulean};
   }
+
   input {
+    font-size: 16px;
+    line-height: 21px;
     border-radius: 0;
   }
 `;
@@ -24,10 +27,14 @@ const Form = styled.form`
 
 const SearchInput = () => {
   const router = useRouter();
-  const { authorName, text } = router.query;
+  const { authorName = '', text = '' } = router.query;
 
   const [searchValue, setSearchValue] = React.useState((authorName || text) || '');
   const [selectedOption, handleOption] = React.useState(headerOptions[0]);
+
+  useEffect(() => {
+    setSearchValue(authorName || text);
+  }, [router.query]);
 
   const valueInQuery = (param, replacement) => {
     const { query } = router;
