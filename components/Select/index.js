@@ -89,7 +89,10 @@ SelectWrapper.propTypes = {
     value: PropTypes.string.isRequired,
     label: PropTypes.number.isRequired,
   })).isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.objectOf({
+    value: PropTypes.string.isRequired,
+    label: PropTypes.number.isRequired,
+  }).isRequired,
   instanceId: PropTypes.number.isRequired,
 };
 

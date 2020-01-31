@@ -16,4 +16,18 @@ const sortOptions = [
   { value: `-${queryTypes.quote}`, label: 'Quotes: Z-A' },
 ];
 
-export { headerOptions, sortOptions, queryTypes };
+const sliderSettings = {
+  dots: true,
+  infinite: false,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  className: 'center',
+  centerMode: true,
+  centerPadding: '60px',
+  variableWidth: true,
+};
+
+export {
+  headerOptions, sortOptions, queryTypes, sliderSettings,
+};

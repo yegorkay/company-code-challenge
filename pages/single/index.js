@@ -1,19 +1,30 @@
 import React, { useEffect } from 'react';
-import { Wrapper } from 'components';
-import { useRouter } from 'next/router';
+import { ContentContainer, Slider } from 'components';
 import PropTypes from 'prop-types';
+import useQuotesAPI from 'api';
 
 const Single = ({ query }) => {
-  // Every 'componentDidMount', read the query params and update the page accordingly
+  const [{
+    data, isLoading, isError, resultsCount,
+  }, doFetch] = useQuotesAPI();
+
   useEffect(() => {
-    console.log(query)
+    const fetchQuery = { ...query };
+    delete fetchQuery.id;
+    doFetch({ pageSize: '6', ...fetchQuery });
   }, []);
 
   return (
     <main>
-      <Wrapper row={false}>
-        carousel
-      </Wrapper>
+      <ContentContainer
+        fullWidth
+        content={data.length > 0 ? (
+          <Slider data={data} />
+        ) : null}
+        isError={isError}
+        isLoading={isLoading}
+        resultsCount={resultsCount}
+      />
     </main>
   );
 };

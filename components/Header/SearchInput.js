@@ -46,6 +46,8 @@ const SearchInput = () => {
     const { query } = router;
     const searchQuery = { [selectedOption.value]: searchValue };
 
+    if ('id' in query) delete query.id;
+
     if (valueInQuery('text', 'authorName')) {
       delete query.text;
       query.authorName = searchValue;
