@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import Link from 'next/link';
 import {
   Card, QuoteSort, Button, Spinner, Wrapper,
 } from 'components';
-import { Grid, Box, Text } from 'grommet';
+import {
+  Grid, Box, Text,
+} from 'grommet';
 import useQuotesAPI from 'api';
 
 const Index = ({ query }) => {
@@ -20,7 +21,9 @@ const Index = ({ query }) => {
     doFetch({ pageSize: '6', ...query });
   }, []);
 
-  useEffect(() => doFetch({ pageSize: '6', ...query }), [query]);
+  useEffect(() => {
+    doFetch({ pageSize: '6', ...query });
+  }, [query]);
 
   const getMoreQuotes = () => {
     const newPage = page + 1;
@@ -55,15 +58,15 @@ const Index = ({ query }) => {
     </>
   );
 
-  const SearchResults = () => <><Link href="/"><a>go back</a></Link><Text>We found {resultsCount} results.</Text></>;
+  const handleBack = () => router.back();
 
   const isSearching = 'text' in query || 'authorName' in query;
 
   return (
     <main>
       <Wrapper row={false}>
-        <QuoteSort />
-        {isSearching ? <SearchResults /> : null}
+        <QuoteSort isSearching={isSearching} onClick={handleBack} />
+        {isSearching ? <Text size="xlarge" margin={{ bottom: 'large' }}>We found {resultsCount} results</Text> : null}
         {isError ? <Text>There was an error. Please try again.</Text> : null}
         {isLoading ? (
           <Box align="center" justify="center">

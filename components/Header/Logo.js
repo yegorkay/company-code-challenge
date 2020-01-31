@@ -1,25 +1,36 @@
 import React from 'react';
 import { Box, Text } from 'grommet';
+import NextLink from 'next/link';
+import styled from 'styled-components';
 import Auth0Logo from './auth0-logo.svg';
 
+const Link = styled.a`
+  display: flex;
+  cursor: pointer;
+`;
+
 const Logo = () => (
-  <Box direction="row" align="center">
-    <Box
-      height="100%"
-      justify="center"
-      margin={{ right: 'medium' }}
-      pad={{ right: 'medium' }}
-      border={{
-        color: 'mine-shaft',
-        size: '1px',
-        style: 'solid',
-        side: 'right',
-      }}
-    >
-      <Auth0Logo />
-    </Box>
-    <Text size="xlarge">Quotes</Text>
-  </Box>
+  <NextLink href="/">
+    <Link>
+      <Box direction="row" align="center">
+        <Box
+          height="100%"
+          justify="center"
+          margin={{ right: 'medium' }}
+          pad={{ right: 'medium' }}
+          border={{
+            color: 'mine-shaft',
+            size: '1px',
+            style: 'solid',
+            side: 'right',
+          }}
+        >
+          <Auth0Logo />
+        </Box>
+        <Text size="xlarge">Quotes</Text>
+      </Box>
+    </Link>
+  </NextLink>
 );
 
 export default Logo;
