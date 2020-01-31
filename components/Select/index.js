@@ -1,84 +1,81 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import ReactSelect from 'react-select';
+import styled from 'styled-components';
 import { colors } from 'settings';
-import CaretIcon from './caret.svg';
 
-const Caret = styled(CaretIcon)`
-  position: absolute;
-  right: 12px;
-  top: 46%;
-`;
 
-const SelectContainer = (props) => {
+const SelectWrapper = (props) => {
   const {
-    onChange, value, name, options, className,
+    options, value, onChange, instanceId, className,
   } = props;
-  const [selectedOption = value, setSelectedOption] = React.useState(options[0].value);
   return (
     <div className={className}>
-      <select
-        name={name}
-        value={selectedOption}
-        onChange={(e) => {
-          setSelectedOption(e.target.value);
-          onChange(e.target.value);
-        }}
-      >
-        {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-      <Caret />
+      <ReactSelect
+        value={value}
+        options={options}
+        onChange={onChange}
+        instanceId={instanceId}
+        theme={(theme) => ({
+          ...theme,
+          colors: {
+            ...theme.colors,
+            primary25: colors.iron,
+            primary: colors.brand,
+          },
+        })}
+        className="react-select-container"
+        classNamePrefix="react-select"
+      />
     </div>
   );
 };
 
-const Select = styled(SelectContainer)`
-  position: relative;
-  height: 100%;
+const Select = styled(SelectWrapper)`
+  width: ${(props) => props.secondary ? '112px' : '148px'};;
 
-  select {
-    height: 100%;
-    padding: 9px 30px 9px 20px;
+  .react-select {
 
-    font-size: 16px;
-    line-height: 21px;
+    &__control {
+      border-bottom-left-radius: 4px;
+      border-top-left-radius: 4px;
+      border-bottom-right-radius: ${(props) => (props.secondary ? 0 : '4px')};
+      border-top-right-radius: ${(props) => (props.secondary ? 0 : '4px')};
 
-    border-bottom-left-radius: 4px;
-    border-top-left-radius: 4px;
-    border-bottom-right-radius: ${(props) => (props.secondary ? 0 : '4px')};
-    border-top-right-radius: ${(props) => (props.secondary ? 0 : '4px')};
+      background: ${(props) => props.secondary ? colors['athens-gray'] : 'white'};
 
-    letter-spacing: 0.5px;
-    color: ${colors.edward};
-
-    border: 1px solid
-      ${(props) => (props.secondary ? colors['athens-gray'] : colors.iron)};
-    background: ${(props) => props.secondary ? colors['athens-gray'] : 'white'};
-
-    -webkit-appearance: none;
-
-    &:focus,
-    &:active {
-      outline: none;
-      box-shadow: 0 0 3px 2px ${colors.brand};
+      ${(props) => props.secondary && `
+        border-right: 1px solid ${colors.iron};
+        border-left: none;
+        border-top: none;
+        border-bottom: none;
+        &:hover {
+          border-right-color: ${colors.iron};
+        }
+      `}
+    }
+    &__indicator-separator {
+      display: none;
+    }
+    &__single-value {
+      color: ${colors.edward};
     }
   }
 `;
 
-SelectContainer.defaultProps = {
+SelectWrapper.defaultProps = {
   className: '',
 };
 
-SelectContainer.propTypes = {
+SelectWrapper.propTypes = {
   className: PropTypes.string,
-  name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  options: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    label: PropTypes.number.isRequired,
+  })).isRequired,
   value: PropTypes.string.isRequired,
+  instanceId: PropTypes.number.isRequired,
 };
 
 export default Select;

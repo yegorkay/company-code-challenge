@@ -1,71 +1,47 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 import {
-  Card, QuoteSort, Button, Spinner,
+  Card, QuoteSort, Button, Spinner, Wrapper,
 } from 'components';
-import Wrapper from 'components/Wrapper';
 import { Grid, Box, Text } from 'grommet';
-import axios from 'axios';
-/** Should be thrown in an ENV, but for the sake of exercises, this will do for now. */
-const API_URL = 'https://auth0-exercise-quotes-api.herokuapp.com/api/quotes';
-
-const useQuotesAPI = () => {
-  // data and API states
-  const [quoteData, setQuoteData] = useState({ quotes: [] });
-  const [params, setParams] = useState({ pageSize: 6 });
-  const [page, setPage] = useState(1);
-  // async state
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsError(false);
-      setIsLoading(true);
-      try {
-        const { data } = await axios(API_URL, {
-          params,
-        });
-        setPage(data.pagination.page);
-        setQuoteData(data.results);
-      } catch (error) {
-        setIsError(true);
-      }
-      setIsLoading(false);
-    };
-    fetchData();
-  }, [params]);
-  return [{
-    data: quoteData, isLoading, isError, page,
-  }, setParams];
-};
+import useQuotesAPI from 'api';
 
 const Index = ({ query }) => {
   // Using custom data fetching hook
   const [{
-    data, isLoading, isError, page,
+    data, isLoading, isError, page, resultsCount, pageCount,
   }, doFetch] = useQuotesAPI();
   // Next.js router
   const router = useRouter();
   // Every 'componentDidMount', read the query params and update the page accordingly
-  useEffect(() => doFetch({ pageSize: 6, ...query }), []);
+  useEffect(() => {
+    doFetch({ pageSize: '6', ...query });
+  }, []);
+
+  useEffect(() => doFetch({ pageSize: '6', ...query }), [query]);
 
   const getMoreQuotes = () => {
     const newPage = page + 1;
     doFetch({ pageSize: 6, page: newPage });
-    router.push(`/?page=${newPage}`);
+    if ('page' in query) {
+      query.page = newPage;
+      router.push({ pathname: '/', query });
+    } else {
+      router.push({ pathname: '/', query: { page: newPage } });
+    }
   };
 
   const renderCards = (quoteData, index) => {
-    const { text, authorName } = quoteData;
+    const { text, authorName, id } = quoteData;
     return (
       <Card
         key={index}
         quote={text}
         position={index + 1}
-        onClick={() => alert(`hello ${index + 1}`)}
-        author={authorName === '' ? 'Unknown' : authorName}
+        onClick={() => router.push({ pathname: '/single', query: { id, ...query } })}
+        author={authorName === '' ? <>&mdash;</> : authorName}
       />
     );
   };
@@ -73,16 +49,21 @@ const Index = ({ query }) => {
   const QuoteGrid = () => (
     <>
       <Grid as="section" columns="376px">
-        {data.length && data.map(renderCards)}
+        {data.length > 0 ? data.map(renderCards) : null}
       </Grid>
-      <Button onClick={getMoreQuotes} />
+      <Button disabled={resultsCount === 0 || page === pageCount} onClick={getMoreQuotes} />
     </>
   );
+
+  const SearchResults = () => <><Link href="/"><a>go back</a></Link><Text>We found {resultsCount} results.</Text></>;
+
+  const isSearching = 'text' in query || 'authorName' in query;
 
   return (
     <main>
       <Wrapper row={false}>
         <QuoteSort />
+        {isSearching ? <SearchResults /> : null}
         {isError ? <Text>There was an error. Please try again.</Text> : null}
         {isLoading ? (
           <Box align="center" justify="center">

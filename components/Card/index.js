@@ -34,7 +34,7 @@ const Card = ({
 Card.propTypes = {
   author: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
-  position: PropTypes.string.isRequired,
+  position: PropTypes.number.isRequired,
   quote: PropTypes.string.isRequired,
 };
 
