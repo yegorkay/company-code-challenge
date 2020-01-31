@@ -33,7 +33,7 @@ const SelectWrapper = (props) => {
 };
 
 const Select = styled(SelectWrapper)`
-  width: ${(props) => props.secondary ? '112px' : '148px'};
+  width: ${(props) => props.secondary ? '25%' : '148px'};
 
   .react-select {
 
@@ -89,7 +89,10 @@ SelectWrapper.propTypes = {
     value: PropTypes.string.isRequired,
     label: PropTypes.number.isRequired,
   })).isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.objectOf({
+    value: PropTypes.string.isRequired,
+    label: PropTypes.number.isRequired,
+  }).isRequired,
   instanceId: PropTypes.number.isRequired,
 };
 

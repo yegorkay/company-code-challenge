@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Button as GButton } from 'grommet';
 
-const Button = ({ onClick, disabled }) => (
+const Button = ({ onClick }) => (
   <Box
     border={{
       color: 'iron',
@@ -16,7 +16,6 @@ const Button = ({ onClick, disabled }) => (
     <GButton
       fill
       active
-      disabled={disabled}
       onClick={onClick}
       label="Load more"
       alignSelf="center"
@@ -24,12 +23,7 @@ const Button = ({ onClick, disabled }) => (
   </Box>
 );
 
-Button.defaultProps = {
-  disabled: false,
-};
-
 Button.propTypes = {
-  disabled: PropTypes.bool,
   onClick: PropTypes.func.isRequired,
 };
 

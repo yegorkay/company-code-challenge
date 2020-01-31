@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { Box, TextInput } from 'grommet';
+import { Box, TextInput, Button } from 'grommet';
 import styled from 'styled-components';
 import { headerOptions, colors } from 'settings';
 import Select from '../Select';
+import SearchIcon from './search.svg';
+import CloseIcon from './close.svg';
 
 const SearchContainer = styled(Box)`
   border-radius: 4px;
   height: 40px;
+  min-width: 478px;
 
   input,
   [contenteditable] {
@@ -19,6 +22,10 @@ const SearchContainer = styled(Box)`
     line-height: 21px;
     border-radius: 0;
   }
+
+  form {
+    width: 75%;
+  }
 `;
 
 const Form = styled.form`
@@ -27,6 +34,7 @@ const Form = styled.form`
 
 const SearchInput = () => {
   const router = useRouter();
+  const { query } = router;
   const { authorName = '', text = '' } = router.query;
 
   const [searchValue, setSearchValue] = React.useState((authorName || text) || '');
@@ -37,26 +45,22 @@ const SearchInput = () => {
   }, [router.query]);
 
   const valueInQuery = (param, replacement) => {
-    const { query } = router;
     const { value } = selectedOption;
     return param in query && value === replacement;
   };
 
+  const replaceQuery = (param, replacement) => {
+    delete query[param];
+    query[replacement] = searchValue;
+    router.push({ pathname: '/', query: { ...query, page: 1 } });
+  };
+
   const handleRouter = () => {
-    const { query } = router;
     const searchQuery = { [selectedOption.value]: searchValue };
 
-    if (valueInQuery('text', 'authorName')) {
-      delete query.text;
-      query.authorName = searchValue;
-      router.push({ pathname: '/', query: { ...query, page: 1 } });
-    }
-
-    if (valueInQuery('authorName', 'text')) {
-      delete query.authorName;
-      query.text = searchValue;
-      router.push({ pathname: '/', query: { ...query, page: 1 } });
-    }
+    if ('id' in query) delete query.id;
+    if (valueInQuery('text', 'authorName')) replaceQuery('text', 'authorName');
+    if (valueInQuery('authorName', 'text')) replaceQuery('authorName', 'text');
 
     router.push({
       pathname: '/',
@@ -72,6 +76,19 @@ const SearchInput = () => {
     e.preventDefault();
     if (searchValue) handleRouter();
   };
+
+  const clearQuery = (param) => {
+    delete query[param];
+    router.push({ pathname: '/', query: { ...query, page: 1 } });
+  };
+
+  const clearSearch = (e) => {
+    e.preventDefault();
+    if ('text' in query) clearQuery('text');
+    if ('authorName' in query) clearQuery('authorName');
+  };
+
+  const canClose = ('text' in router.query) || ('authorName' in router.query);
 
   return (
     <SearchContainer
@@ -90,13 +107,16 @@ const SearchInput = () => {
         value={selectedOption}
         onChange={handleSelect}
       />
-      <Form onSubmit={onSubmit}>
+      <Form onSubmit={canClose ? clearSearch : onSubmit}>
         <TextInput
           plain
           value={searchValue}
           onChange={handleInput}
           placeholder="Enter your search term"
         />
+        <Button type="submit" margin={{ right: 'medium' }}>
+          {canClose ? <CloseIcon /> : <SearchIcon />}
+        </Button>
       </Form>
     </SearchContainer>
   );
