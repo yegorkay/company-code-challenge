@@ -2,11 +2,8 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import {
-  Card, QuoteSort, Button, Spinner, Wrapper,
+  Card, Button, ContentContainer, Grid,
 } from 'components';
-import {
-  Grid, Box, Text,
-} from 'grommet';
 import useQuotesAPI from 'api';
 
 const Index = ({ query }) => {
@@ -43,37 +40,31 @@ const Index = ({ query }) => {
         key={index}
         quote={text}
         position={index + 1}
-        onClick={() => router.push({ pathname: '/single', query: { id, ...query } })}
+        onClick={() => router.push({ pathname: `/single/${id}`, query: { ...query } })}
         author={authorName === '' ? <>&mdash;</> : authorName}
       />
     );
   };
 
+  const canLoadMore = !(resultsCount === 0 || page === pageCount);
+
   const QuoteGrid = () => (
     <>
-      <Grid as="section" columns="376px">
+      <Grid>
         {data.length > 0 ? data.map(renderCards) : null}
       </Grid>
-      <Button disabled={resultsCount === 0 || page === pageCount} onClick={getMoreQuotes} />
+      {canLoadMore ? <Button onClick={getMoreQuotes} /> : null}
     </>
   );
 
-  const handleBack = () => router.back();
-
-  const isSearching = 'text' in query || 'authorName' in query;
-
   return (
     <main>
-      <Wrapper row={false}>
-        <QuoteSort isSearching={isSearching} onClick={handleBack} />
-        {isSearching ? <Text size="xlarge" margin={{ bottom: 'large' }}>We found {resultsCount} results</Text> : null}
-        {isError ? <Text>There was an error. Please try again.</Text> : null}
-        {isLoading ? (
-          <Box align="center" justify="center">
-            <Spinner />
-          </Box>
-        ) : <QuoteGrid />}
-      </Wrapper>
+      <ContentContainer
+        content={<QuoteGrid />}
+        isError={isError}
+        isLoading={isLoading}
+        resultsCount={resultsCount}
+      />
     </main>
   );
 };

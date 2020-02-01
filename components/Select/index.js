@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactSelect from 'react-select';
 import styled from 'styled-components';
-import { colors } from 'settings';
+import { colors, device } from 'settings';
 
 
 const SelectWrapper = (props) => {
@@ -33,7 +33,7 @@ const SelectWrapper = (props) => {
 };
 
 const Select = styled(SelectWrapper)`
-  width: ${(props) => props.secondary ? '112px' : '148px'};
+  width: ${(props) => props.secondary ? '25%' : '148px'};
 
   .react-select {
 
@@ -76,6 +76,15 @@ const Select = styled(SelectWrapper)`
       text-align: center;
     }
   }
+
+  ${(props) => props.secondary && `
+    @media ${device.tablet} {
+      width: 120px;
+    }
+    @media ${device.mobileS} {
+      width: 95px;
+    }
+  `}
 `;
 
 SelectWrapper.defaultProps = {
@@ -87,9 +96,12 @@ SelectWrapper.propTypes = {
   onChange: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.string.isRequired,
-    label: PropTypes.number.isRequired,
+    label: PropTypes.string.isRequired,
   })).isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+  }).isRequired,
   instanceId: PropTypes.number.isRequired,
 };
 

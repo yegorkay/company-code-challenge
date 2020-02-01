@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'grommet';
 import styled from 'styled-components';
-import { colors } from 'settings';
+import { colors, device } from 'settings';
 import Arrow from './arrow.svg';
 
 const BackButtonWrapper = ({ onClick, className }) => (
@@ -28,6 +28,10 @@ const BackButton = styled(BackButtonWrapper)`
 
   svg {
     margin: 0 17px 0 0;
+  }
+
+  @media ${device.tablet} {
+    margin: 0 0 20px;
   }
 `;
 
