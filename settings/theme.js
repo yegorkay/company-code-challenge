@@ -49,6 +49,18 @@ const text = {
     size: '22.5px',
     height: '30px',
   },
+  xxlarge: {
+    size: '29px',
+    height: '39px',
+  },
+  xxxlarge: {
+    size: '33px',
+    height: '44px',
+  },
+  largest: {
+    size: '41.6px',
+    height: '55px',
+  },
 };
 
 const colors = {
