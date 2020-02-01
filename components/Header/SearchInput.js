@@ -54,18 +54,13 @@ const SearchInput = ({ showSearch }) => {
     if (searchValue) handleRouter();
   };
 
-  const clearQuery = (param) => {
-    delete query[param];
-    router.push({ pathname: '/', query: { ...query, page: 1 } });
-  };
-
   const clearSearch = (e) => {
     e.preventDefault();
-    if ('text' in query) clearQuery('text');
-    if ('authorName' in query) clearQuery('authorName');
+    setSearchValue('');
   };
 
-  const canClose = ('text' in router.query) || ('authorName' in router.query);
+  const canClose = ('text' in query) || ('authorName' in query);
+  const canRemoveValue = searchValue === query.authorName || searchValue === query.text;
 
   return (
     <SearchContainer
@@ -93,7 +88,7 @@ const SearchInput = ({ showSearch }) => {
           placeholder="Enter your search term"
         />
         <Button onClick={canClose ? clearSearch : null}>
-          {canClose ? <CloseIcon /> : <SearchIcon />}
+          {canRemoveValue ? <CloseIcon /> : <SearchIcon />}
         </Button>
       </form>
     </SearchContainer>
