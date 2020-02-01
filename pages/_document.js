@@ -3,6 +3,8 @@ import Document from 'next/document';
 import { ServerStyleSheet, createGlobalStyle, css } from 'styled-components';
 import { colors } from 'settings';
 import normalize from 'normalize.css/normalize.css';
+import slickCSS from 'slick-carousel/slick/slick.css';
+import slickTheme from 'slick-carousel/slick/slick-theme.css';
 
 /** Setting up the one font for now. */
 const fontFaces = css`
@@ -20,6 +22,8 @@ const GlobalStyles = createGlobalStyle`
     background: ${colors['athens-gray']};
   }
   ${normalize}
+  ${slickCSS}
+  ${slickTheme}
 `;
 
 export default class MyDocument extends Document {
