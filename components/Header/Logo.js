@@ -14,11 +14,25 @@ const Link = styled.a`
   }
 `;
 
+const LogoContainer = styled(Box)`
+  @media ${device.tablet} {
+    transform: scale(0.9);
+    margin-right: 6px;
+  }
+`;
+
+const LogoText = styled(Text)`
+  @media ${device.tablet} {
+    font-size: 16px;
+    line-height: 21px;
+  }
+`;
+
 const Logo = () => (
   <NextLink href="/">
     <Link>
       <Box direction="row" align="center">
-        <Box
+        <LogoContainer
           height="100%"
           justify="center"
           margin={{ right: 'medium' }}
@@ -31,8 +45,8 @@ const Logo = () => (
           }}
         >
           <Auth0Logo />
-        </Box>
-        <Text size="xlarge">Quotes</Text>
+        </LogoContainer>
+        <LogoText size="xlarge">Quotes</LogoText>
       </Box>
     </Link>
   </NextLink>

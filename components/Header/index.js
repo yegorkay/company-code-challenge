@@ -8,12 +8,12 @@ import Logo from './Logo';
 import SearchIcon from './search.svg';
 
 const SearchButton = styled(Button)`
-  width: 16px;
+  width: 12px;
   margin: 0 20px 0 0;
 
   svg {
-    height: 16px;
-    width: 16px;
+    height: 12px;
+    width: 12px;
     display: none;
 
     @media ${device.tablet} {
