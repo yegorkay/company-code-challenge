@@ -19,8 +19,8 @@ const Wrapper = ({ children, row, noPad }) => (
     noPad={noPad}
     margin="0 auto"
     justify="between"
-    width={{ max: '1172px' }}
-    pad={{ horizontal: '10px' }}
+    width={{ max: '1160px' }}
+    pad={{ horizontal: '16px' }}
     direction={row ? 'row' : 'column'}
   >
     {children}
