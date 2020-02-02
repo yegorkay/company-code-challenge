@@ -64,7 +64,7 @@ const SearchInput = ({ showSearch }) => {
 
   return (
     <SearchContainer
-      showSearch={showSearch || canClose}
+      showSearch={showSearch}
       direction="row"
       border={{
         color: 'iron',
@@ -87,7 +87,7 @@ const SearchInput = ({ showSearch }) => {
           onChange={handleInput}
           placeholder="Enter your search term"
         />
-        <Button onClick={canClose ? clearSearch : null}>
+        <Button onClick={canRemoveValue ? clearSearch : onSubmit}>
           {canRemoveValue ? <CloseIcon /> : <SearchIcon />}
         </Button>
       </form>

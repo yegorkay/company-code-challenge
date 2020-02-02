@@ -8,7 +8,7 @@ const Grid = styled.section`
   grid-template-columns: repeat(auto-fill, minmax(356px,1fr));
   grid-gap: 32px 32px;
   grid-auto-rows: minmax(308px, 1fr);
-  border-bottom:  1px solid ${colors.iron};
+  ${(props) => (props.noResults) && `border-bottom:  1px solid ${colors.iron};`}
   padding: 0 0 32px;
 
   @media ${device.tablet} {
