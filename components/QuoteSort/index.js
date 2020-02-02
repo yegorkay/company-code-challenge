@@ -22,6 +22,7 @@ const QuoteText = styled(Text)`
 `;
 
 const SortContainer = styled(Box)`
+  ${(props) => !(props.hasResults) && 'display: none;'}
   @media ${device.tablet} {
     margin: ${(props) => props.hasResults && '0 0 40px'};
   }
@@ -71,7 +72,7 @@ const QuoteSort = (props) => {
       {showSort ? <SearchState /> : <BackButton onClick={onClick} />}
       {isSearching ? <ResultText resultsCount={resultsCount} /> : null}
       {showSort ? (
-        <SortContainer hasResults={resultsCount > 0 && isSearching} direction="row" justify="between" align="center">
+        <SortContainer hasResults={resultsCount > 0} direction="row" justify="between" align="center">
           <Text color="edward" margin={{ right: 'medium' }} size="medium">
             Sort by:
           </Text>

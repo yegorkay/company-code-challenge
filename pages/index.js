@@ -50,7 +50,7 @@ const Index = ({ query }) => {
 
   const QuoteGrid = () => (
     <>
-      <Grid>
+      <Grid noResults={data.length > 0}>
         {data.length > 0 ? data.map(renderCards) : null}
       </Grid>
       {canLoadMore ? <Button onClick={getMoreQuotes} /> : null}
