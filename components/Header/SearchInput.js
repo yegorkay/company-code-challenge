@@ -87,7 +87,7 @@ const SearchInput = ({ showSearch }) => {
           onChange={handleInput}
           placeholder="Enter your search term"
         />
-        <Button onClick={canClose ? clearSearch : onSubmit}>
+        <Button onClick={canRemoveValue ? clearSearch : onSubmit}>
           {canRemoveValue ? <CloseIcon /> : <SearchIcon />}
         </Button>
       </form>
