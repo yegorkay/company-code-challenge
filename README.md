@@ -1,4 +1,4 @@
-# auth0-mxp-ex
+# company
 
 This repository is the foundations for the marketing engineering ui exercise. It contains a simple application built with [next.js](https://nextjs.org/) (and thus react and react-dom), [styled-components](https://www.styled-components.com/), a custom config for babel (support for styled-components and svg imports) and eslint (linting with a custom set of rules). All the setup has been done and you have a similar environment you'll have working with us. We know that you may not know every single technology we're using so we encourage you to ask, be communicative and forthcoming to us, we're here to help :)
 
